@@ -41,3 +41,6 @@ sudo tcpdump -i ethX icmp and icmp[icmptype]=icmp-echo
 sudo tc qdisc add dev eth1 root handle 1: prio priomap 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 sudo tc qdisc add dev eth1 parent 1:2 handle 20: netem delay 3000ms
 sudo tc filter add dev eth1 parent 1:0 protocol ip u32 match ip sport 7000 0xffff flowid 1:2
+
+iperf -s
+iperf -c 192.xxx
