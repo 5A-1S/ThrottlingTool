@@ -92,7 +92,16 @@ def throttle_port_src(interface, port, delay):
         Client.run_command("router", string)
 
 
-action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6:throttle_port_dst, 7:throttle_port_src}
+@click.command()
+@click.option('--interface', prompt='Interface', type=click.STRING, help='Interface for comms')
+def clear_interface(interface):
+    global Client
+    print("Clearing Interface", interface)
+    string = TC.clear_interface(interface)
+    Client.run_command("router", string)
+
+
+action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6: throttle_port_dst, 7: throttle_port_src, 8: clear_interface}
 
 
 @click.command()
@@ -115,6 +124,7 @@ def help_options():
     print("5 - Throttle Source IP")
     print("6 - Throttle Destination Port")
     print("7 - Throttle Source Port")
+    print("8 - Clear Interface")
     print()
 
 
