@@ -25,7 +25,6 @@ def deploy_network():
     subprocess.run(["/Users/diogoremiao/Desktop/FEUP/TARSC/Lab2/Code/deploy_clusters.sh"])
 
 
-
 @click.command()
 def purge_network():
     print("Purging Network")
@@ -76,7 +75,6 @@ def throttle_port_dst(interface, port, delay):
     print(*strings, sep="\n")
     for string in strings:
         Client.run_command("router", string)
-
 
 
 @click.command()
