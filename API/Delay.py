@@ -15,10 +15,10 @@ def ping_delay(destination):
 	matcher = re.compile("rtt min/avg/max/mdev = (\d+.\d+)")
 	result=(matcher.search(output_text).groups(1))
 	result=result[0].translate((str.maketrans('','','(')))
-	print(result)
+	#print(result)
 	return result
 
-def ping_port(destination, port):
+def ping_delay_port(destination, port):
 
 	string = "time nc -zw30 " + destination + " " + str(port)
 	ping = subprocess.Popen(string, shell = True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -30,3 +30,5 @@ def ping_port(destination, port):
 	result = result[0].translate((str.maketrans('', '', ':')))
 	print(result)
 	return result
+
+ping_port("172.22.0.3", 80)
