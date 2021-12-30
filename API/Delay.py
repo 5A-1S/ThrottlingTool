@@ -12,7 +12,6 @@ def ping_delay(destination):
 	)
 	out,error=ping.communicate()
 	output_text=out.decode()
-	print(output_text)
 	matcher = re.compile("rtt min/avg/max/mdev = (\d+.\d+)")
 	result=(matcher.search(output_text).groups(1))
 	result=result[0].translate((str.maketrans('','','(')))
@@ -31,5 +30,3 @@ def ping_port(destination, port):
 	result = result[0].translate((str.maketrans('', '', ':')))
 	print(result)
 	return result
-
-ping_delay("172.17.0.3")

@@ -19,7 +19,7 @@ def ping_ip(ip, time):
 
     for i in range(time):
         sleep(1)
-        result = ping_delay("172.22.0.3")
+        result = ping_delay(ip)
 
         print("Timeframe", i + 1, "s", "Delay = ", result, "ms")
         print("------------------------")
