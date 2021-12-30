@@ -34,7 +34,7 @@ def ping_port(ip, port, time):
     print("Testing ping on", ip, "port", port)
 
     for i in range(time):
-        time.sleep(1)
+        sleep(1)
         result = ping_port(ip, port)
 
         print("Timeframe", i + 1, "s", "Delay = ", result, "ms")
