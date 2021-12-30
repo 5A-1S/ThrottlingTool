@@ -1,4 +1,6 @@
 import random
+from Delay import ping_delay
+import time
 
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D

@@ -1,5 +1,5 @@
 import docker
-
+import time
 
 class Client:
 
@@ -50,10 +50,11 @@ class Client:
         container = self.get_container_with_name(name)
         container.restart()
 
-    def run_command(self, name, command):
+    def run_command(self, name, command, detach=False):
 
         container = self.get_container_with_name(name)
 
-        output = container.exec_run(command, privileged=True)
+        output = container.exec_run(command, privileged=True, detach=detach)
 
         return output
+

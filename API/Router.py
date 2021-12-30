@@ -46,7 +46,7 @@ def throttle_ip_dst(interface, ip, delay):
     global Client
     print("Applying delay to destination ip", ip)
     strings = TC.delay_ip_dst(interface, ip, delay)
-    print(*strings, sep="\n")
+    #print(*strings, sep="\n")
     for string in strings:
         Client.run_command("router", string)
 
@@ -59,7 +59,7 @@ def throttle_ip_src(interface, ip, delay):
     global Client
     print("Applying delay to source ip", ip)
     strings = TC.delay_ip_src(interface, ip, delay)
-    print(*strings, sep="\n")
+    #print(*strings, sep="\n")
     for string in strings:
         Client.run_command("router", string)
 
@@ -72,7 +72,7 @@ def throttle_port_dst(interface, port, delay):
     global Client
     print("Applying delay to destination port", port)
     strings = TC.delay_port_dst(interface, port, delay)
-    print(*strings, sep="\n")
+    #print(*strings, sep="\n")
     for string in strings:
         Client.run_command("router", string)
 
@@ -85,7 +85,7 @@ def throttle_port_src(interface, port, delay):
     global Client
     print("Applying delay to source port", port)
     strings = TC.delay_port_src(interface, port, delay)
-    print(*strings, sep="\n")
+    #print(*strings, sep="\n")
     for string in strings:
         Client.run_command("router", string)
 
@@ -98,8 +98,25 @@ def clear_interface(interface):
     string = TC.clear_interface(interface)
     Client.run_command("router", string)
 
+@click.command()
+@click.option('--host', prompt='Host', type=click.STRING, help='Host to start server on')
+def turn_on_iperf(host):
+    global Client
+    print("Starting Iperf endpoint on", host)
 
-action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6: throttle_port_dst, 7: throttle_port_src, 8: clear_interface}
+    Client.run_command(host, "iperf -s", detach=True)
+
+
+@click.command()
+@click.option('--host', prompt='Host', type=click.STRING, help='Host to start server on')
+def turn_off_iperf(host):
+    global Client
+    print("Stopping Iperf endpoint on", host)
+
+    Client.run_command(host, "pkill iperf", detach=True)
+
+
+action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6: throttle_port_dst, 7: throttle_port_src, 8: clear_interface, 9:turn_on_iperf, 10:turn_off_iperf}
 
 
 @click.command()
@@ -123,6 +140,8 @@ def help_options():
     print("6 - Throttle Destination Port")
     print("7 - Throttle Source Port")
     print("8 - Clear Interface")
+    print("9 - Turn on Iperf Endpoint")
+    print("10- Turn of Iperf Endpoint")
     print()
 
 
