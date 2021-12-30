@@ -12,6 +12,7 @@ def ping_delay(destination):
 	)
 	out,error=ping.communicate()
 	output_text=out.decode()
+	print(output_text)
 	matcher = re.compile("rtt min/avg/max/mdev = (\d+.\d+)")
 	result=(matcher.search(output_text).groups(1))
 	result=result[0].translate((str.maketrans('','','(')))
