@@ -32,4 +32,4 @@ def ping_port(destination, port):
 	print(result)
 	return result
 
-ping_delay("8.8.8.8")
+ping_delay("172.17.0.3")
