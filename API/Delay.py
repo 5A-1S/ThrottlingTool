@@ -23,10 +23,20 @@ def ping_delay_port(destination, port):
 	string = "time nc -zw30 " + destination + " " + str(port)
 	ping = subprocess.Popen(string, shell = True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-	out, error = ping.communicate(cd )
+	out, error = ping.communicate()
 	output_text = error.decode()
 	matcher = re.compile("\d+:\d+\d+.\d+\d+")
 	result = (matcher.search(output_text))
 	result = result[0].translate((str.maketrans('', '', ':')))
+	#print(result)
+	return result
+
+def ping_iperf(destination):
+	string = "iperf -c " + destination
+	ping=subprocess.Popen(string, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out,error=ping.communicate()
+	output_text=out.decode()
+	array = output_text.split()
+	result = array[-2]
 	#print(result)
 	return result

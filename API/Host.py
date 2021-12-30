@@ -46,6 +46,10 @@ def iperf_test(ip):
 
     print("Testing connection bandwidth on", ip)
 
+    result = ping_iperf(ip)
+
+    print("Connection Bandwidth:", result, "Gbits/s")
+
 
 
 action_map = {0: exit_cli, 1: ping_ip, 2: ping_port, 3:iperf_test}
