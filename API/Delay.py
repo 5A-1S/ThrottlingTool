@@ -30,5 +30,3 @@ def ping_port(destination, port):
 	result = result[0].translate((str.maketrans('', '', ':')))
 	print(result)
 	return result
-
-ping_port("172.22.0.2", 80)
