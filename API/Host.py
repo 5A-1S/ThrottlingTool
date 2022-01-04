@@ -59,15 +59,22 @@ def ftp_test(ip, times):
 
     print("Testing connection bandwidth on", ip)
 
+    average = 0
+
     for i in range(times):
 
         result = ping_ftp(ip)
 
+
         bandwidth = 1073741824 / float(result) / 1024 / 1024
 
-        subprocess.run(["rm mlg2.img"])
+        average += round(bandwidth)
+
+        subprocess.run(["rm /root/ThrottlingTool/API/mlg2.img"], shell=True)
 
         print("Connection Bandwidth Test ", i+1, ":", round(bandwidth), "Mbits/s")
+
+    print("Average Bandwidth:", round(average/times), "Mbits/s")
 
 
 
