@@ -3,6 +3,7 @@ import click
 from pyfiglet import Figlet
 from time import sleep
 import sys
+import subprocess
 
 @click.command()
 def exit_cli():
@@ -53,15 +54,22 @@ def iperf_test(ip):
 
 @click.command()
 @click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to test')
+@click.option('--times', prompt='Number of Times', type=click.STRING, help='Number of times to download')
 def ftp_test(ip):
 
     print("Testing connection bandwidth on", ip)
 
-    result = ping_ftp(ip)
+    for i in range(10):
 
-    bandwidth = 1073741824 / float(result) /1024 / 1024
+        result = ping_ftp(ip)
 
-    print("Connection Bandwidth:", bandwidth, "Mbits/s")
+        bandwidth = 1073741824 / float(result) / 1024 / 1024
+
+        subprocess.run(["rm mlg2.img"])
+
+        print("Connection Bandwidth Test ", i+1, ":", round(bandwidth), "Mbits/s")
+
+
 
 
 
