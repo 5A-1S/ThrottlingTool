@@ -54,7 +54,7 @@ def iperf_test(ip):
 
 @click.command()
 @click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to test')
-@click.option('--times', prompt='Number of Times', type=click.STRING, help='Number of times to download')
+@click.option('--times', prompt='Number of Times', type=click.INT, help='Number of times to download')
 def ftp_test(ip, times):
 
     print("Testing connection bandwidth on", ip)
