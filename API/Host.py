@@ -55,11 +55,11 @@ def iperf_test(ip):
 @click.command()
 @click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to test')
 @click.option('--times', prompt='Number of Times', type=click.STRING, help='Number of times to download')
-def ftp_test(ip):
+def ftp_test(ip, times):
 
     print("Testing connection bandwidth on", ip)
 
-    for i in range(10):
+    for i in range(times):
 
         result = ping_ftp(ip)
 
