@@ -1,8 +1,8 @@
 from Delay import *
-import sys
 import click
 from pyfiglet import Figlet
 from time import sleep
+import sys
 
 @click.command()
 def exit_cli():
@@ -51,8 +51,21 @@ def iperf_test(ip):
     print("Connection Bandwidth:", result, "Gbits/s")
 
 
+@click.command()
+@click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to test')
+def ftp_test(ip):
 
-action_map = {0: exit_cli, 1: ping_ip, 2: ping_port, 3:iperf_test}
+    print("Testing connection bandwidth on", ip)
+
+    result = ping_ftp(ip)
+
+    bandwidth = 1073741824 / float(result) /1024 / 1024
+
+    print("Connection Bandwidth:", bandwidth, "Mbits/s")
+
+
+
+action_map = {0: exit_cli, 1: ping_ip, 2: ping_port, 3:iperf_test, 4:ftp_test}
 
 
 @click.command()
@@ -71,6 +84,7 @@ def help_options():
     print("1 - Ping IP ICMP")
     print("2 - Ping IP Port")
     print("3 - Iperf Speedtest")
+    print("4 - FTP Speedtest")
     print()
 
 

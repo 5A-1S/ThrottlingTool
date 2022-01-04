@@ -1,6 +1,10 @@
 import subprocess
+import shutil
+import urllib.request as request
+from contextlib import closing
+from datetime import datetime
 import re
-import sys
+import ftplib
 
 
 def ping_delay(destination):
@@ -40,3 +44,35 @@ def ping_iperf(destination):
 	result = array[-2]
 	#print(result)
 	return result
+
+def ping_ftp(destination):
+
+	# Fill Required Information
+	HOSTNAME = destination
+	USERNAME = "testuser"
+	PASSWORD = "testuser"
+
+	# Connect FTP Server
+	ftp_server = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+
+	# force UTF-8 encoding
+	ftp_server.encoding = "utf-8"
+
+	filename = "mlg2.img"
+
+	# Write file in binary mode
+	time1 = datetime.now()
+	with open(filename, "wb") as file:
+		# Command for Downloading the file "RETR filename"
+		ftp_server.retrbinary(f"RETR {filename}", file.write)
+
+	# Close the Connection
+	ftp_server.quit()
+
+	time2 = datetime.now()
+	timing = time2 - time1
+	timing2 = str(timing)
+	matcher = re.compile("\d+\d+.\d+\d+\d+\d+")
+	result = (matcher.search(timing2))
+	# print(result[0])
+	return result[0]

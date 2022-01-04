@@ -115,8 +115,28 @@ def turn_off_iperf(host):
 
     Client.run_command(host, "pkill iperf", detach=True)
 
+@click.command()
+def turn_on_ftp():
+    global Client
+    print("Starting FTP endpoints on 172.22.0.5 and 172.22.0.6")
 
-action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6: throttle_port_dst, 7: throttle_port_src, 8: clear_interface, 9:turn_on_iperf, 10:turn_off_iperf}
+    Client.run_command("server_1", "systemctl start vsftpd", detach=True)
+    Client.run_command("server_1", "systemctl enable vsftpd", detach=True)
+
+    Client.run_command("server_2", "systemctl start vsftpd", detach=True)
+    Client.run_command("server_2", "systemctl enable vsftpd", detach=True)
+
+
+@click.command()
+def turn_off_ftp():
+    global Client
+    print("Stopping FTP endpoints on 172.22.0.5 and 172.22.0.6")
+
+    Client.run_command("server_1", "systemctl stop vsftpd", detach=True)
+    Client.run_command("server_2", "systemctl stop vsftpd", detach=True)
+
+
+action_map = {0: exit_cli, 1: deploy_network, 2: purge_network, 3: list_containers, 4: throttle_ip_dst, 5: throttle_ip_src, 6: throttle_port_dst, 7: throttle_port_src, 8: clear_interface, 9:turn_on_iperf, 10:turn_off_iperf, 11:turn_on_ftp, 12:turn_off_ftp}
 
 
 @click.command()
@@ -142,6 +162,8 @@ def help_options():
     print("8 - Clear Interface")
     print("9 - Turn on Iperf Endpoint")
     print("10- Turn of Iperf Endpoint")
+    print("11- Turn on FTP Endpoints")
+    print("12- Turn off FTP Endpoints")
     print()
 
 
