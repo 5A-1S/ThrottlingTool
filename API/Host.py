@@ -48,9 +48,10 @@ def iperf_test(ip):
     print("Testing connection bandwidth on", ip)
 
     result = ping_iperf(ip)
-
-    print("Connection Bandwidth:", result, "Gbits/s")
-
+    if float(result) < 15:
+        print("Connection Bandwidth:", result, "Gbits/s")
+    else:
+        print("Connection Bandwidth:", result, "Mbits/s")
 
 @click.command()
 @click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to test')
@@ -66,7 +67,7 @@ def ftp_test(ip, times):
         result = ping_ftp(ip)
 
 
-        bandwidth = 1073741824 / float(result) / 1024 / 1024
+        bandwidth = 1073741824 / float(result) / 1024 / 1024 / 10
 
         average += round(bandwidth)
 

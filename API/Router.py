@@ -53,7 +53,7 @@ def throttle_ip_dst(interface, ip, delay):
 
 @click.command()
 @click.option('--interface', prompt='Interface', type=click.STRING, help='Interface for comms')
-@click.option('--ip', prompt='Destination IP', type=click.STRING, help='Destination IP to delay')
+@click.option('--ip', prompt='Source IP', type=click.STRING, help='Srouce IP to delay')
 @click.option('--delay', prompt='Delay', type=click.INT, help='Delay to apply')
 def throttle_ip_src(interface, ip, delay):
     global Client
@@ -79,7 +79,7 @@ def throttle_port_dst(interface, port, delay):
 
 @click.command()
 @click.option('--interface', prompt='Interface', type=click.STRING, help='Interface for comms')
-@click.option('--port', prompt='Destination Port', type=click.STRING, help='Destination Port to delay')
+@click.option('--port', prompt='Source Port', type=click.STRING, help='Srouce Port to delay')
 @click.option('--delay', prompt='Delay', type=click.INT, help='Delay to apply')
 def throttle_port_src(interface, port, delay):
     global Client
@@ -118,7 +118,7 @@ def turn_off_iperf(host):
 @click.command()
 def turn_on_ftp():
     global Client
-    print("Starting FTP endpoints on 172.22.0.5 and 172.22.0.6")
+    print("Starting FTP endpoints on 172.22.0.5 and 172.23.0.5")
 
     Client.run_command("server_1", "systemctl start vsftpd", detach=True)
     Client.run_command("server_1", "systemctl enable vsftpd", detach=True)
@@ -130,7 +130,7 @@ def turn_on_ftp():
 @click.command()
 def turn_off_ftp():
     global Client
-    print("Stopping FTP endpoints on 172.22.0.5 and 172.22.0.6")
+    print("Stopping FTP endpoints on 172.22.0.5 and 172.23.0.5")
 
     Client.run_command("server_1", "systemctl stop vsftpd", detach=True)
     Client.run_command("server_2", "systemctl stop vsftpd", detach=True)
